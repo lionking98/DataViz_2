@@ -1,0 +1,168 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Change in television broadcast hours associated with production between two ABS survey years.",
+  "width": "container",
+  "height": 198,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/abs_change.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "before": "number",
+        "after": "number",
+        "change": "number"
+      }
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "change",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          -72,
+          205
+        ]
+      },
+      "axis": {
+        "title": "Change in hours (%)",
+        "values": [
+          -50,
+          0,
+          50,
+          100,
+          150,
+          200
+        ]
+      }
+    },
+    "y": {
+      "field": "genre",
+      "type": "nominal",
+      "sort": [
+        "Drama",
+        "Documentary",
+        "Children's",
+        "Light entertainment*"
+      ],
+      "title": null,
+      "axis": {
+        "ticks": false,
+        "labelLimit": 126
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#9b8f7c"
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        },
+        "y": {
+          "value": 0
+        },
+        "y2": {
+          "value": "height"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 18,
+        "cornerRadiusEnd": 2
+      },
+      "encoding": {
+        "x2": {
+          "datum": 0
+        },
+        "color": {
+          "field": "genre",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Drama",
+              "Documentary",
+              "Children's",
+              "Light entertainment*"
+            ],
+            "range": [
+              "#aa432b",
+              "#276c60",
+              "#805584",
+              "#8b8172"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "genre",
+            "type": "nominal",
+            "title": "ABS category"
+          },
+          {
+            "field": "before",
+            "type": "quantitative",
+            "title": "2015–16 hours",
+            "format": ",d"
+          },
+          {
+            "field": "after",
+            "type": "quantitative",
+            "title": "2021–22 hours",
+            "format": ",d"
+          },
+          {
+            "field": "annotation",
+            "type": "nominal",
+            "title": "Change"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "dy": -17
+      },
+      "encoding": {
+        "text": {
+          "field": "annotation",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}

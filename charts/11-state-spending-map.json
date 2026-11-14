@@ -1,0 +1,184 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Choropleth of drama production expenditure in Australia, with selectable year.",
+  "width": "container",
+  "height": 264,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ]
+  },
+  "params": [
+    {
+      "name": "stateYear",
+      "value": "2024–25",
+      "bind": {
+        "input": "select",
+        "options": [
+          "2023–24",
+          "2024–25"
+        ],
+        "name": "Financial year "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-abs.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.code",
+          "from": {
+            "data": {
+              "url": "data/state_spending.csv",
+              "format": {
+                "type": "csv",
+                "parse": {
+                  "longitude": "number",
+                  "latitude": "number",
+                  "prior": "number",
+                  "latest": "number"
+                }
+              }
+            },
+            "key": "code",
+            "fields": [
+              "prior",
+              "latest"
+            ]
+          }
+        },
+        {
+          "calculate": "stateYear === '2024–25' ? datum.latest : datum.prior",
+          "as": "spending"
+        },
+        {
+          "calculate": "isValid(datum.spending) ? 'A$' + datum.spending + 'm' : 'Reported together'",
+          "as": "spendingLabel"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#fffdf7",
+        "strokeWidth": 0.85,
+        "invalid": null
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "isValid(datum.spending)",
+            "field": "spending",
+            "type": "quantitative",
+            "scale": {
+              "domain": [
+                0,
+                1000
+              ],
+              "range": [
+                "#e2ede0",
+                "#134e44"
+              ]
+            },
+            "legend": {
+              "title": "Spend (A$m)",
+              "orient": "bottom",
+              "gradientLength": 134
+            }
+          },
+          "value": "#e0d8cc"
+        },
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "spendingLabel",
+            "type": "nominal",
+            "title": "Spend or coverage"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "text",
+        "fontWeight": "bold",
+        "fontSize": 11
+      },
+      "transform": [
+        {
+          "calculate": "stateYear === '2024–25' ? datum.latest : datum.prior",
+          "as": "labelSpend"
+        }
+      ],
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "code",
+          "type": "nominal"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.labelSpend >= 500",
+            "value": "#fffdf7"
+          },
+          "value": "#2b473d"
+        }
+      }
+    }
+  ]
+}

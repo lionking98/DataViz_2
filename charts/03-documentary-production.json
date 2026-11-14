@@ -1,0 +1,134 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bullet chart comparing documentary titles in 2024–25 with the previous five-year mean.",
+  "width": "container",
+  "height": 173,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/documentary.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "latest": "number",
+        "average": "number"
+      }
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "group",
+      "type": "nominal",
+      "sort": [
+        "Independent",
+        "In-house"
+      ],
+      "title": null,
+      "axis": {
+        "ticks": false
+      }
+    },
+    "x": {
+      "field": "latest",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          195
+        ]
+      },
+      "axis": {
+        "title": "Titles entering production",
+        "tickCount": 5
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "size": 27,
+        "color": "#d9e6dc"
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 12,
+        "color": "#276c60"
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Production type"
+          },
+          {
+            "field": "latest",
+            "type": "quantitative",
+            "title": "2024–25 titles"
+          },
+          {
+            "field": "average",
+            "type": "quantitative",
+            "title": "Previous five-year average"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "size": 34,
+        "thickness": 2,
+        "color": "#1b423b"
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -5,
+        "fontWeight": "bold",
+        "color": "#fff"
+      },
+      "encoding": {
+        "text": {
+          "field": "latest",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

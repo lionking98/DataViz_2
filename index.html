@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Australian TV production and viewing have changed across drama, documentary, children’s programs and reality.">
+  <title>Australian Television Genres</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/vega.js"></script>
+  <script defer src="assets/vega-lite.js"></script>
+  <script defer src="assets/vega-embed.js"></script>
+  <script defer src="dashboard.js"></script>
+</head>
+<body>
+  <header>
+    <p class="course">FIT3179 · Data Visualisation 2</p>
+    <h1>Australian Television Genres</h1>
+    <p class="intro">How have drama, documentary, children’s programs and reality TV changed in Australia?</p>
+    <p>Fewer local drama titles entered production in 2024–25. Drama still took the largest share of viewing on broadcaster apps among the four genres examined here.</p>
+    <nav aria-label="Page sections">
+      <a href="#made">Production</a>
+      <a href="#watched">Viewing</a>
+      <a href="#streaming">Paid streaming</a>
+      <a href="#places">Maps</a>
+    </nav>
+  </header>
+  <main>
+    <section class="chapter" id="made">
+      <h2>What gets made?</h2>
+      <p>Production changed in different directions across genres. Documentary hours more than doubled from 444 to 1,175 between the two ABS surveys, while children’s hours fell from 865 to 377. More recently, general TV drama titles entering production dropped from 44 to 32 in 2024–25, with subscription drama accounting for most of that fall.</p>
+      <div class="grid">
+        <figure class="chart">
+          <h3>Documentary hours grew. Children’s hours fell.</h3>
+          <p class="chart-note">Percentage change in broadcast hours associated with production, 2015–16 to 2021–22.</p>
+          <div class="vis" data-chart="01-production-hours"></div>
+          <figcaption>Children’s combines drama and other children’s programs. *ABS light entertainment and variety includes reality, lifestyle and other formats. <span class="source-credit">Source: Australian Bureau of Statistics.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Fewer drama titles went into production</h3>
+          <p class="chart-note">Subscription drama fell from 28 titles to 18 in 2024–25. Hover over the points to compare spending.</p>
+          <div class="vis" data-chart="02-drama-production"></div>
+          <figcaption>Subscription includes subscription TV and paid streaming. Free-to-air includes broadcaster streaming. Subscription spending per title rose substantially in 2024–25. <span class="source-credit">Source: Screen Australia.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Independent producers made most documentaries</h3>
+          <p class="chart-note">Titles entering production in 2024–25. The thin marks show the previous five-year averages.</p>
+          <div class="vis" data-chart="03-documentary-production"></div>
+          <figcaption>Independent producers accounted for 168 of 196 titles. The total includes documentaries across release formats, so it is broader than TV alone. <span class="source-credit">Source: Screen Australia.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Reality premieres by five-year period</h3>
+          <p class="chart-note">First premieres of shows TVmaze classifies as reality on channels it lists as Australian.</p>
+          <div class="vis" data-chart="04-reality-premieres"></div>
+          <figcaption>One count per series. The 2025 records sit outside the five-year blocks shown. Catalogue coverage varies over time, so the bars show documented premieres rather than a complete industry total. <span class="source-credit">Source: TVmaze.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="chapter" id="watched">
+      <h2>What do people watch?</h2>
+      <p>Drama was the strongest of these four genres on broadcaster apps such as ABC iview and 9Now. In the first half of 2026 it accounted for 20.7% of app viewing minutes, more than twice its 8.8% share on broadcast TV. Reality and children’s programs also claimed larger shares on apps, while documentary leaned slightly toward broadcast TV.</p>
+      <div class="grid">
+        <figure class="chart">
+          <h3>Drama led these four genres on broadcaster apps</h3>
+          <p class="chart-note">Its share fell from 24.4% to 20.7% between the first halves of 2025 and 2026. Switch platforms to compare.</p>
+          <div class="vis" data-chart="05-viewing-over-time"></div>
+          <figcaption>Shares can move as viewing of other genres changes. OzTAM updated its connected-TV co-viewing model in August 2025. © OzTAM VOZ. <span class="source-credit">Source: OzTAM VOZ.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Drama had the widest platform gap</h3>
+          <p class="chart-note">Share of all viewing minutes on each platform, January to June 2026.</p>
+          <div class="vis" data-chart="06-platform-gap"></div>
+          <figcaption>Reality and children’s programs also took a bigger share on broadcaster apps. Drama had the widest platform gap at 11.9 percentage points. Documentary includes cultural programming. © OzTAM VOZ. <span class="source-credit">Source: OzTAM VOZ.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Broadcaster apps reached children’s audiences</h3>
+          <p class="chart-note">About 24% of the monthly audience for children’s programs used broadcaster streaming only in the second half of 2025.</p>
+          <div class="vis" data-chart="07-reach-waffle"></div>
+          <figcaption>Each block has 100 cells, with about one cell per 1% of that genre’s monthly audience. A person reached on both routes is counted once in the “both” group. Hover for exact shares. © OzTAM VOZ. <span class="source-credit">Source: OzTAM VOZ.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Cartoons still led among children aged 8–10</h3>
+          <p class="chart-note">51% picked Australian cartoons in 2025, down from 68% in 2023. Comedy was steady across those two years.</p>
+          <div class="vis" data-chart="08-childrens-preferences"></div>
+          <figcaption>The two survey waves included 192 children in 2023 and 176 in 2025 who had watched screen content in the previous week. Children could choose multiple answers, so percentages need not sum to 100%. <span class="source-credit">Source: Australian Government Television &amp; Media Survey.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="chapter" id="streaming">
+      <h2>What is available on paid streaming?</h2>
+      <p>Adult drama dominated the Australian catalogue reported by paid services such as Netflix, Stan and Prime Video. In 2024–25 it accounted for 3,545 hours, about 65% of the hours across the four genres shown. Adult drama spending also rose by A$108.1m, more than the A$72.4m net increase across all genres because spending elsewhere fell.</p>
+      <div class="grid">
+        <figure class="chart">
+          <h3>Adult drama took up more shelf space</h3>
+          <p class="chart-note">Hours of Australian programs available at 30 June each year. Hover over a cell for the title count.</p>
+          <div class="vis" data-chart="09-streaming-catalogue"></div>
+          <figcaption>Children’s includes drama and non-drama. Four services reported at first and Paramount+ joined in 2021–22, which affects comparisons across years. <span class="source-credit">Source: ACMA.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Adult drama drove the spending increase</h3>
+          <p class="chart-note">How each genre contributed to the change in spending on Australian programs, in millions of Australian dollars.</p>
+          <div class="vis" data-chart="10-spending-waterfall"></div>
+          <figcaption>The total includes commissions and acquisitions. ACMA cites a major investment in a feature film that was unreleased at the time. Spending can therefore rise without more titles appearing immediately. <span class="source-credit">Source: ACMA.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="chapter" id="places">
+      <h2>Where are shows made and available?</h2>
+      <p>Queensland’s A$619m rise put it ahead of NSW for drama production spending in 2024–25, and Victoria gained A$388m. High-budget international titles accounted for most of Queensland’s total, showing how a few major productions can reshape the spending map. Overseas, North America had the deepest reported Australian streaming catalogue: an average of 455 hours per reporting country, about 1.7 times South America’s 266 hours.</p>
+      <div class="grid">
+        <figure class="chart">
+          <h3>Queensland overtook NSW in drama spending</h3>
+          <p class="chart-note">Drama production spending by state, including Australian and overseas film and TV projects.</p>
+          <div class="vis" data-chart="11-state-spending-map"></div>
+          <figcaption>ACT, NT and Tasmania are reported as one group and shown in grey. Group spending was A$105m in 2023–24 and A$20m in 2024–25. Darker colour means more spending in the selected year. <span class="source-credit">Source: Screen Australia.</span></figcaption>
+        </figure>
+        <figure class="chart">
+          <h3>Queensland and Victoria drove the spending shift</h3>
+          <p class="chart-note">Change in drama production spending from 2023–24 to 2024–25. Filled circles show states with separate figures; outlined circles locate the shared ACT, NT and Tasmania total.</p>
+          <div class="vis" data-chart="12-state-spending-change-map"></div>
+          <div class="map-key" aria-label="Map key">
+            <span class="key-gain">Increase</span>
+            <span class="key-fall">Decrease</span>
+            <span class="key-shared">Shared group*</span>
+            <span>Larger filled circle = larger state change</span>
+          </div>
+          <p class="map-explanation">Queensland rose from A$306m to A$925m (+A$619m), while Victoria gained A$388m and NSW fell A$119m. WA and SA changed little. Screen Australia reports that high-budget international titles made up 85% of Queensland’s 2024–25 spending, and just four titles accounted for 62% of Victoria’s. A few large projects can therefore move the state totals sharply.</p>
+          <figcaption>Figures include Australian and overseas film and TV projects. *ACT, NT and Tasmania share one reported total: A$105m in 2023–24 and A$20m in 2024–25. Each outlined circle repeats that same group result for location only; count it once. <span class="source-credit">Source: Screen Australia, Drama Report.</span></figcaption>
+        </figure>
+        <figure class="chart wide">
+          <h3>North America had the deepest reported overseas catalogue</h3>
+          <p class="chart-note">Thicker lines show more Australian program hours per reporting country, averaged within each region.</p>
+          <div class="vis" data-chart="13-overseas-availability-map"></div>
+          <figcaption>Connections use approximate regional centres. They show availability, not observed distribution routes or audience size. <span class="source-credit">Source: ACMA.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="endnote" aria-labelledby="conclusion">
+      <h2 id="conclusion">What stands out</h2>
+      <ul class="takeaways">
+        <li><strong>Fewer subscription dramas absorbed more money.</strong> Titles entering production fell from 28 to 18 in 2024–25, while spending rose from A$471m to A$492m. Average reported spending per title climbed from about A$16.8m to A$27.3m, a 62% increase.</li>
+        <li><strong>Drama led these genres on broadcaster apps.</strong> It accounted for 20.7% of app viewing minutes in the first half of 2026, more than twice its 8.8% share on broadcast TV. Children’s programs (9.6% versus 4.4%) and reality (13.3% versus 7.4%) also had larger shares on apps; documentary was the exception.</li>
+        <li><strong>Adult drama drove the paid-streaming spending rise.</strong> ACMA’s reported spending increased by A$72.4m overall, but adult drama alone rose A$108.1m. Falls in sport and documentary spending offset part of that gain, so the net increase was smaller than the drama increase.</li>
+        <li><strong>A few big productions reshaped the spending map.</strong> High-budget international titles accounted for 85% of Queensland’s 2024–25 drama expenditure, while four titles made up 62% of Victoria’s. Screen Australia also identifies studio and crew resources and state incentives as factors affecting where productions land.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <h2>Data sources</h2>
+    <ol class="data-sources">
+      <li>Australian Bureau of Statistics (2023). <em>Film, Television and Digital Games, Australia, 2021–22</em>, Table 2.2, with the 2015–16 comparison. <a href="https://www.abs.gov.au/statistics/industry/technology-and-innovation/film-television-and-digital-games-australia/latest-release">abs.gov.au</a>.</li>
+      <li>Screen Australia (2025). <em>Drama Report 2024/25</em>. <a href="https://www.screenaustralia.gov.au/insights-and-trends/industry-reports/drama-report/">screenaustralia.gov.au/drama-report</a>.</li>
+      <li>Screen Australia (n.d.). <em>Documentary Production: Activity Summary</em>. <a href="https://www.screenaustralia.gov.au/insights-and-trends/trends-production/documentary-production/activity-summary-4/">screenaustralia.gov.au/documentary-production</a>.</li>
+      <li>TVmaze (catalogue checked November 2026). <em>TV API: Show Index</em>, reality-series premiere records for Australian-listed channels. <a href="https://www.tvmaze.com/api">tvmaze.com/api</a>.</li>
+      <li>© OzTAM VOZ (2025–2026). <em>Total TV Viewing Reports</em>: <a href="https://virtualoz.com.au/wp-content/uploads/2025/09/VOZ-Total-TV-Report-H1-2025_FINAL.pdf">H1 2025</a>, <a href="https://virtualoz.com.au/wp-content/uploads/2026/02/VOZ-Total-TV-Report-H2-2025.pdf">H2 2025</a> and <a href="https://virtualoz.com.au/insight/voz-total-tv-viewing-report-h1-2026/">H1 2026</a>.</li>
+      <li>Australian Government Department of Infrastructure, Transport, Regional Development, Communications and the Arts (2026). <em>The 2025 Television &amp; Media Survey – Summary Report</em>. <a href="https://www.infrastructure.gov.au/sites/default/files/documents/television-media-survey-2025-summary-report.pdf">infrastructure.gov.au</a>.</li>
+      <li>Australian Communications and Media Authority (2026). <em>Spending by subscription video on demand providers</em>. <a href="https://www.acma.gov.au/spending-subscription-video-demand-providers">acma.gov.au</a>.</li>
+      <li>Map data: Australian Bureau of Statistics (2021). <em>Australian Statistical Geography Standard, Edition 3</em>, state and territory digital boundaries. <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files">abs.gov.au</a>.</li>
+    </ol>
+    <h2>Format</h2>
+    <p class="format-note">Built with <a href="https://vega.github.io/vega-lite/">Vega-Lite</a> and <a href="https://github.com/vega/vega-embed">Vega-Embed</a>. Typeface: DM Sans, bundled locally. Chart specifications are in the <code>charts/</code> folder of this project.</p>
+    <p class="credits">Author: Aryeh Zeimer. ChatGPT assisted with  data processing, drafting Vegalite and HTML code and proofreading text.</p>
+  </footer>
+</body>
+</html>

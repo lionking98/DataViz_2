@@ -1,0 +1,160 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Waterfall showing the contribution of each genre to changes in reported subscription streaming expenditure.",
+  "width": "container",
+  "height": 238,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/waterfall.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "start": "number",
+        "end": "number",
+        "amount": "number"
+      }
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "step",
+      "type": "nominal",
+      "sort": [
+        "2023–24",
+        "Adult drama",
+        "Light entertainment",
+        "Children's",
+        "Documentary",
+        "Sport",
+        "2024–25"
+      ],
+      "title": null,
+      "axis": {
+        "labelLimit": 123,
+        "ticks": false
+      }
+    },
+    "x": {
+      "field": "end",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          525
+        ]
+      },
+      "axis": {
+        "title": "Spending on Australian programs (A$m)",
+        "tickCount": 5
+      }
+    }
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "filter": "isValid(datum.next) && datum.next !== ''"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          3,
+          3
+        ],
+        "color": "#ab9f8e"
+      },
+      "encoding": {
+        "y2": {
+          "field": "next"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "size": 15,
+        "cornerRadiusEnd": 2
+      },
+      "encoding": {
+        "x2": {
+          "field": "start"
+        },
+        "color": {
+          "field": "kind",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Total",
+              "Increase",
+              "Decrease"
+            ],
+            "range": [
+              "#403b33",
+              "#2e7160",
+              "#aa432b"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "step",
+            "type": "nominal",
+            "title": "Year or category"
+          },
+          {
+            "field": "amount",
+            "type": "quantitative",
+            "title": "Total or contribution (A$m)",
+            "format": ",.3f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontWeight": "bold",
+        "fontSize": 10
+      },
+      "encoding": {
+        "x": {
+          "field": "label_x",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "transform": [
+    {
+      "calculate": "max(datum.start, datum.end)",
+      "as": "label_x"
+    }
+  ]
+}

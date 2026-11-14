@@ -1,0 +1,265 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Connection map showing average reported catalogue hours per reporting country, grouped by overseas region.",
+  "width": "container",
+  "height": 288,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "projection": {
+    "type": "equalEarth",
+    "rotate": [
+      -150,
+      0,
+      0
+    ]
+  },
+  "params": [
+    {
+      "name": "overseasYear",
+      "value": "2024–25",
+      "bind": {
+        "input": "select",
+        "options": [
+          "2023–24",
+          "2024–25"
+        ],
+        "name": "Financial year "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "data/world-with-graticules.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_30"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#b5b5a3",
+        "strokeOpacity": 0.58,
+        "strokeWidth": 0.6,
+        "aria": false
+      }
+    },
+    {
+      "data": {
+        "url": "data/world-with-graticules.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.code !== 'ATA'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e8e2d5",
+        "stroke": "#fffdf7",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/overseas_links.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.year === overseasYear"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "filled": false,
+        "stroke": "#a8513c",
+        "strokeOpacity": 0.67
+      },
+      "encoding": {
+        "strokeWidth": {
+          "field": "properties.hours",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              500
+            ],
+            "range": [
+              0,
+              5
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "properties.region",
+            "type": "nominal",
+            "title": "Reporting region"
+          },
+          {
+            "field": "properties.hours",
+            "type": "quantitative",
+            "title": "Average hours per reporting country",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "longitude": 134,
+            "latitude": -25
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#233831",
+        "size": 73
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/overseas.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "hours": "number",
+            "titles": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.year === overseasYear"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#a64d37",
+        "opacity": 1,
+        "size": 49,
+        "stroke": "#fff",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "Reporting region"
+          },
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "hours",
+            "type": "quantitative",
+            "title": "Average hours per reporting country",
+            "format": ".1f"
+          },
+          {
+            "field": "titles",
+            "type": "quantitative",
+            "title": "Average titles per reporting country",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/overseas.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "hours": "number",
+            "titles": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.year === overseasYear"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dy": -9,
+        "color": "#4b3529"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "region",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}

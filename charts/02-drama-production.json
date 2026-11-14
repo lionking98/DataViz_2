@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Australian TV drama titles entering production, by first release.",
+  "width": "container",
+  "height": 233,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/production.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "titles": "number",
+        "spending": "number"
+      }
+    }
+  },
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 63
+    },
+    "strokeWidth": 2.7
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "nominal",
+      "sort": [
+        "2020–21",
+        "2021–22",
+        "2022–23",
+        "2023–24",
+        "2024–25"
+      ],
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "titles",
+      "type": "quantitative",
+      "title": "Titles entering production"
+    },
+    "color": {
+      "field": "category",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Free-to-air drama",
+          "Subscription drama",
+          "Children's drama"
+        ],
+        "range": [
+          "#ae6746",
+          "#7e392c",
+          "#805584"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "bottom",
+        "symbolSize": 70,
+        "labelLimit": 170
+      }
+    },
+    "tooltip": [
+      {
+        "field": "year",
+        "type": "nominal",
+        "title": "Financial year"
+      },
+      {
+        "field": "category",
+        "type": "nominal",
+        "title": "First release"
+      },
+      {
+        "field": "titles",
+        "type": "quantitative",
+        "title": "Titles entering production"
+      },
+      {
+        "field": "spending",
+        "type": "quantitative",
+        "title": "Spend (A$m)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Share of viewing minutes by genre over three half-years, for each broadcaster platform.",
+  "width": "container",
+  "height": 276,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/audience.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "share": "number"
+      }
+    }
+  },
+  "params": [
+    {
+      "name": "audiencePlatform",
+      "value": "Broadcaster streaming",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Broadcast TV",
+          "Broadcaster streaming"
+        ],
+        "name": "Platform "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.platform === audiencePlatform"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 74
+    },
+    "strokeWidth": 2.8
+  },
+  "encoding": {
+    "x": {
+      "field": "period",
+      "type": "nominal",
+      "sort": [
+        "H1 2025",
+        "H2 2025",
+        "H1 2026"
+      ],
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          30
+        ]
+      },
+      "axis": {
+        "title": "Share of platform viewing minutes",
+        "values": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "labelExpr": "datum.label + '%'"
+      }
+    },
+    "color": {
+      "field": "genre",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Drama",
+          "Documentary",
+          "Children's",
+          "Reality"
+        ],
+        "range": [
+          "#aa432b",
+          "#276c60",
+          "#805584",
+          "#855b12"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "bottom",
+        "symbolSize": 70,
+        "labelLimit": 170
+      }
+    },
+    "tooltip": [
+      {
+        "field": "genre",
+        "type": "nominal",
+        "title": "Genre"
+      },
+      {
+        "field": "period",
+        "type": "nominal",
+        "title": "Period"
+      },
+      {
+        "field": "platform",
+        "type": "nominal",
+        "title": "Platform"
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share of minutes (%)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

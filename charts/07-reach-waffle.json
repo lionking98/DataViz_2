@@ -1,0 +1,139 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Viewing routes among the average monthly audience reached by each genre in H2 2025.",
+  "data": {
+    "url": "data/waffle.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "row": "number",
+        "column": "number",
+        "share": "number",
+        "millions": "number"
+      }
+    }
+  },
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "background": null,
+  "width": "container",
+  "height": 232,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "mark": {
+    "type": "rect",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "x": {
+      "field": "column",
+      "type": "ordinal",
+      "axis": null
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "title": null,
+      "scale": {
+        "domain": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ]
+      },
+      "axis": {
+        "values": [
+          2,
+          8,
+          14,
+          20
+        ],
+        "labelExpr": "datum.value == 2 ? 'Drama' : datum.value == 8 ? 'Documentary' : datum.value == 14 ? \"Children’s\" : 'Reality'",
+        "ticks": false,
+        "labelLimit": 100
+      }
+    },
+    "color": {
+      "field": "mode",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Broadcast only",
+          "Both",
+          "Streaming only"
+        ],
+        "range": [
+          "#b8b0c0",
+          "#757087",
+          "#12695e"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "bottom",
+        "symbolSize": 70,
+        "labelLimit": 170
+      }
+    },
+    "tooltip": [
+      {
+        "field": "genre",
+        "type": "nominal",
+        "title": "Genre"
+      },
+      {
+        "field": "mode",
+        "type": "nominal",
+        "title": "Viewed via"
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share of genre reach (%)",
+        "format": ".1f"
+      },
+      {
+        "field": "millions",
+        "type": "quantitative",
+        "title": "Monthly genre reach (millions)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

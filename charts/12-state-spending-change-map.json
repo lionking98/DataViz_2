@@ -1,0 +1,349 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "State-level change in drama production spending, 2023–24 to 2024–25. Every separately reported state is labelled.",
+  "width": "container",
+  "height": 300,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia-abs.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e7dfd1",
+        "stroke": "#fffdf7",
+        "strokeWidth": 0.75
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.latest - datum.prior",
+          "as": "change"
+        },
+        {
+          "calculate": "abs(datum.change)",
+          "as": "magnitude"
+        },
+        {
+          "calculate": "datum.change > 0 ? 'Increase' : 'Decrease'",
+          "as": "direction"
+        },
+        {
+          "calculate": "'A$' + (datum.change > 0 ? '+' : '') + datum.change + 'm'",
+          "as": "changeLabel"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.88,
+        "stroke": "#fffdf7",
+        "strokeWidth": 0.9
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "magnitude",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              620
+            ],
+            "range": [
+              0,
+              2500
+            ]
+          },
+          "legend": null
+        },
+        "color": {
+          "field": "direction",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Increase",
+              "Decrease"
+            ],
+            "range": [
+              "#216457",
+              "#ad4a31"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "code",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "prior",
+            "type": "quantitative",
+            "title": "2023–24 (A$m)"
+          },
+          {
+            "field": "latest",
+            "type": "quantitative",
+            "title": "2024–25 (A$m)"
+          },
+          {
+            "field": "changeLabel",
+            "type": "nominal",
+            "title": "Change"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "abs(datum.latest - datum.prior)",
+          "as": "magnitude"
+        },
+        {
+          "filter": "datum.magnitude >= 100"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#fffdf7"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "code",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "abs(datum.latest - datum.prior)",
+          "as": "magnitude"
+        },
+        {
+          "filter": "datum.magnitude < 100"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "dy": -12,
+        "color": "#21322e"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "code",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending_shared_locations.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.latest - datum.prior",
+          "as": "change"
+        },
+        {
+          "calculate": "'A$' + datum.change + 'm'",
+          "as": "changeLabel"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 340,
+        "fill": "#fffdf7",
+        "stroke": "#ad4a31",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "code",
+            "type": "nominal",
+            "title": "Map location"
+          },
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Reported group"
+          },
+          {
+            "field": "prior",
+            "type": "quantitative",
+            "title": "2023–24 group total (A$m)"
+          },
+          {
+            "field": "latest",
+            "type": "quantitative",
+            "title": "2024–25 group total (A$m)"
+          },
+          {
+            "field": "changeLabel",
+            "type": "nominal",
+            "title": "Shared change"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/state_spending_shared_locations.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "longitude": "number",
+            "latitude": "number",
+            "prior": "number",
+            "latest": "number"
+          }
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum.code + '*'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dx": 15,
+        "align": "left",
+        "color": "#8a3b29"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}

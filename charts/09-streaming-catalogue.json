@@ -1,0 +1,146 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Hours of Australian programs available on paid streaming services.",
+  "width": "container",
+  "height": 213,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/catalogue.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "titles": "number",
+        "hours": "number"
+      }
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "nominal",
+      "sort": [
+        "2019–20",
+        "2020–21",
+        "2021–22",
+        "2022–23",
+        "2023–24",
+        "2024–25"
+      ],
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "ticks": false,
+        "labelOverlap": "greedy",
+        "labelLimit": 64
+      }
+    },
+    "y": {
+      "field": "genre",
+      "type": "nominal",
+      "sort": [
+        "Adult drama",
+        "Documentary",
+        "Children's",
+        "Light entertainment"
+      ],
+      "title": null,
+      "axis": {
+        "ticks": false,
+        "labelLimit": 118
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#fffdf7",
+        "strokeWidth": 2,
+        "cornerRadius": 3
+      },
+      "encoding": {
+        "color": {
+          "field": "hours",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              "#e8f0e7",
+              "#a3c1ad",
+              "#4d8a76",
+              "#1f6052"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom",
+            "gradientLength": 150
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "genre",
+            "type": "nominal",
+            "title": "ACMA genre"
+          },
+          {
+            "field": "hours",
+            "type": "quantitative",
+            "title": "Catalogue hours",
+            "format": ",d"
+          },
+          {
+            "field": "titles",
+            "type": "quantitative",
+            "title": "Catalogue titles",
+            "format": ",d"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {
+          "field": "hours",
+          "type": "quantitative",
+          "format": ",d"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.hours > 2250",
+            "value": "#fff"
+          },
+          "value": "#242a22"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Slopegraph of Australian programs children aged 8–10 liked most, 2023 and 2025.",
+  "width": "container",
+  "height": 229,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/children_survey.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "percent": "number"
+      }
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "nominal",
+      "sort": [
+        2023,
+        2025
+      ],
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      },
+      "scale": {
+        "padding": 0.41
+      }
+    },
+    "y": {
+      "field": "percent",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          77
+        ]
+      },
+      "axis": {
+        "title": "Children choosing this (%)",
+        "tickCount": 5
+      }
+    },
+    "color": {
+      "field": "program",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Animation or cartoons",
+          "Comedy",
+          "Educational",
+          "Drama"
+        ],
+        "range": [
+          "#704573",
+          "#aa432b",
+          "#276c60",
+          "#726344"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "bottom",
+        "symbolSize": 70,
+        "labelLimit": 170
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 59
+        },
+        "strokeWidth": 2.4
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "program",
+            "type": "nominal",
+            "title": "Australian content"
+          },
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Survey year"
+          },
+          {
+            "field": "percent",
+            "type": "quantitative",
+            "title": "Children choosing this (%)"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.program === 'Animation or cartoons'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -10,
+        "fontSize": 10,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {
+          "field": "percent",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": {
+        "field": "year",
+        "oneOf": [
+          2023,
+          2025
+        ]
+      }
+    }
+  ]
+}

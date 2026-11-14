@@ -1,0 +1,8 @@
+step,start,end,amount,kind,next,annotation
+2023–24,0.0,341.523054,341.523054,Total,Adult drama,$341.5m
+Adult drama,341.523054,449.621163,108.098109,Increase,Light entertainment,+108.1
+Light entertainment,449.621163,450.297815,0.676652,Increase,Children's,+0.7
+Children's,450.297815,450.62364,0.325825,Increase,Documentary,+0.3
+Documentary,450.62364,442.469044,-8.154596,Decrease,Sport,-8.2
+Sport,442.469044,413.967284,-28.50176,Decrease,2024–25,-28.5
+2024–25,0.0,413.967284,413.967284,Total,,$414.0m

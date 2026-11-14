@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Counts of TVmaze reality-show premieres on Australian-listed channels in five-year blocks.",
+  "width": "container",
+  "height": 174,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/reality_periods.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "titles": "number"
+      }
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "period",
+      "type": "nominal",
+      "sort": [
+        "2000–04",
+        "2005–09",
+        "2010–14",
+        "2015–19",
+        "2020–24",
+        "2025–29"
+      ],
+      "title": null,
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "titles",
+      "type": "quantitative",
+      "title": "Documented series",
+      "scale": {
+        "domain": [
+          0,
+          150
+        ]
+      },
+      "axis": {
+        "tickCount": 4
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#855b12",
+        "cornerRadiusEnd": 3,
+        "width": {
+          "band": 0.63
+        }
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "period",
+            "type": "nominal",
+            "title": "Premiere window"
+          },
+          {
+            "field": "titles",
+            "type": "quantitative",
+            "title": "Documented series"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dy": -9,
+        "fontWeight": "bold",
+        "color": "#634409"
+      },
+      "encoding": {
+        "text": {
+          "field": "titles",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

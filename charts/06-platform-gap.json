@@ -1,0 +1,196 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dumbbell comparison of broadcast and broadcaster streaming shares for four genres, first half of 2026.",
+  "width": "container",
+  "height": 230,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "background": null,
+  "config": {
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domain": false,
+      "gridColor": "#e1e7e2",
+      "labelPadding": 5
+    },
+    "legend": {
+      "columns": 2
+    }
+  },
+  "data": {
+    "url": "data/platform_gap.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "broadcast": "number",
+        "streaming": "number",
+        "difference": "number",
+        "midpoint": "number"
+      }
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "genre",
+      "type": "nominal",
+      "sort": [
+        "Drama",
+        "Documentary",
+        "Children's",
+        "Reality"
+      ],
+      "title": null,
+      "axis": {
+        "ticks": false,
+        "labelLimit": 115
+      }
+    },
+    "x": {
+      "field": "broadcast",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          25
+        ]
+      },
+      "axis": {
+        "title": "Share of platform viewing minutes",
+        "values": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25
+        ],
+        "labelExpr": "datum.label + '%'"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "genre",
+        "type": "nominal",
+        "title": "Genre"
+      },
+      {
+        "field": "broadcast",
+        "type": "quantitative",
+        "title": "Broadcast share (%)",
+        "format": ".1f"
+      },
+      {
+        "field": "streaming",
+        "type": "quantitative",
+        "title": "Streaming share (%)",
+        "format": ".1f"
+      },
+      {
+        "field": "annotation",
+        "type": "nominal",
+        "title": "Streaming minus broadcast"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#b5ab9a",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x2": {
+          "field": "streaming"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "fold": [
+            "broadcast",
+            "streaming"
+          ],
+          "as": [
+            "metric",
+            "share"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "share",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "metric",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "broadcast",
+              "streaming"
+            ],
+            "range": [
+              "#605c75",
+              "#0b695d"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom",
+            "symbolSize": 70,
+            "labelLimit": 170,
+            "labelExpr": "datum.label === 'broadcast' ? 'Broadcast TV' : 'Broadcaster streaming'"
+          }
+        },
+        "shape": {
+          "field": "metric",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "broadcast",
+              "streaming"
+            ],
+            "range": [
+              "circle",
+              "diamond"
+            ]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dy": -11,
+        "fontWeight": "bold",
+        "fontSize": 10,
+        "color": "#594e3f"
+      },
+      "encoding": {
+        "x": {
+          "field": "midpoint",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}
